@@ -1,0 +1,7 @@
+гипотеза,chi2,df,p-value,причинность
+total load actual -> generation wind onshore,29.14,15,0.0154,да
+price actual -> generation wind onshore,12.89,15,0.6109,нет
+generation wind onshore -> total load actual,21.72,15,0.1154,нет
+price actual -> total load actual,128.31,15,0.0,да
+generation wind onshore -> price actual,54.84,15,0.0,да
+total load actual -> price actual,78.88,15,0.0,да

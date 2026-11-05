@@ -14,12 +14,12 @@ def region_query(X, i, eps):
 
 
 def dbscan(X, eps, min_samples):
-    """Простейший DBSCAN.
+    """Простейший DBSCAN
 
-    X           -- массив формы (n, d)
-    eps         -- радиус окрестности
-    min_samples -- минимум точек в eps-окрестности для ядровой точки
-    Возвращает массив меток: 0, 1, 2, ... -- кластеры, -1 -- шум.
+    X           - массив формы (n, d)
+    eps         - радиус окрестности
+    min_samples - минимум точек в eps-окрестности для ядровой точки
+    Возвращает массив меток: 0, 1- кластеры, -1 - шум.
     """
     X = np.asarray(X, dtype=float)
     n = len(X)
@@ -27,7 +27,7 @@ def dbscan(X, eps, min_samples):
     cluster_id = 0
 
     for p in range(n):
-        if labels[p] != UNVISITED:          # уже обработана -- пропускаем
+        if labels[p] != UNVISITED:          # уже обработана - пропускаем
             continue
 
         neighbors = region_query(X, p, eps)
@@ -36,7 +36,7 @@ def dbscan(X, eps, min_samples):
             labels[p] = NOISE               # (может стать граничной позже)
             continue
 
-        # p -- ядровая точка: создаём новый кластер и расширяем его (BFS)
+        # p - ядровая точка: создаём новый кластер и расширяем его (BFS)
         labels[p] = cluster_id
         queue = list(neighbors)
         k = 0
@@ -45,7 +45,7 @@ def dbscan(X, eps, min_samples):
             k += 1
 
             if labels[q] == NOISE:          # шум, достижимый из ядровой,
-                labels[q] = cluster_id      # -> граничная точка кластера
+                labels[q] = cluster_id      # граничная точка кластера
                 continue
             if labels[q] != UNVISITED:      # уже принадлежит кластеру
                 continue
@@ -80,7 +80,7 @@ def plot_k_distance(X, k, ax):
  
  
 def plot_clusters(X, labels, ax, eps, min_samples):
-    """Точки раскрашены по кластерам, шум -- серые крестики."""
+    """Точки раскрашены по кластерам, шум - серые крестики."""
     for c in sorted(set(labels)):
         mask = labels == c
         if c == NOISE:
@@ -98,7 +98,7 @@ def plot_clusters(X, labels, ax, eps, min_samples):
 if __name__ == "__main__":
     rng = np.random.default_rng(42)
 
-    # два облака + немного равномерного шума
+    # два облака, немного равномерного шума
     cluster1 = rng.normal(loc=[0, 0], scale=0.3, size=(50, 2))
     cluster2 = rng.normal(loc=[3, 3], scale=0.3, size=(50, 2))
     noise = rng.uniform(low=-2, high=5, size=(10, 2))
